@@ -1,9 +1,14 @@
 # Tartarus
 
-### Introduction
+## Introduction
 
-To perform each function in our pipeline, we will be using the Processing Toolbox. If this pane is not visible go to the “Processing” tab -> “Toolbox.” These tools are the bulk of how we manipulate layers in QGIS. In the following instructions, any bolded words represent a tool from the Toolbox or a model  I created that we will run from the Toolbox. To follow this protocol simply search the tool name within the Toolbox search window and run the corresponding tool.
+This protocol involves three main aspects.
+1. Plant Isolation
+2. Plot Segmentation
+3. Index Application & Data Extraction
 
+
+## Setup
 
 ### 1. Import Models
 
@@ -19,6 +24,9 @@ Drag and drop the stitched image into the center of the screen
 Using this tool, we will crop out any extra imagery so only the field of interest is included. Below is an example of the dialog options. 
 
 ![image](https://user-images.githubusercontent.com/13274399/205352656-54bc59a0-cf61-4ceb-b096-5e779d8bbc0b.png)
+
+
+## Plant Isolation
 
 ### 4. NExG Histogram
 
@@ -39,17 +47,14 @@ d.	PlantsOnly_MaskBase
         i. Use this for each consecutive flight of the same field. 
         ii. After georeferencing the fields so they are aligned, run this model so that we measure the same locations on both dates.
 
-### 6. Raster Calculator
-     a. Input index.
-          i. EGI = (2*Green) – (Red + Blue)
-     b. Perform this on the PlantsOnly file. 
+## Plot Segmentation
 
-### 7. Create Grid
+### 6. Create Grid
 
      a. Line
      b. Create a line grid, then move the lines around to accurately cover each plot
 
-### 8. Polygonize
+### 7. Polygonize
      a. Don't include field from the grid
      b. Turns grid from lines into polygons. From here move vertices as required.
 
@@ -65,6 +70,15 @@ d.	PlantsOnly_MaskBase
         Using the centroids as a reference layer, we create a polygon around each point. The size and shape can be defined using the dialog options. 
 
 ***
+
+## Index Application and Data Export
+
+### 8. Raster Calculator
+     a. Input index.
+          i. Excess Greenness Index = (2 * Green) – (Red + Blue)
+          ii. Normalized Excess Greenness Index (NExG) = ((2 * Green) – (Red + Blue)) / (Red + Green + Blue)
+          iii. Others
+     b. Perform this on the PlantsOnly file. Otherwise this will include the background environment as well.  
 
 ### 9. Zonal Statistics
      a. The zonal statistics tools will individually measure each polygon in the grid, sampling every pixel in each polygon.
