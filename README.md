@@ -40,13 +40,13 @@ Select a threshold value. Values above the threshold will be labeled plants whil
 2. High threshold -> some plants will be removed as “soil or shadow.”
 
 ### 5. PLantsOnly_variable
-a.	Enter your input image and the threshold value you decided on in the previous step. This tool will remove all the pixels considered “Soil or Shadow.”
-        i. Since QGIS 3.30 the threshold value must be input manually to the model. Right-click the model and "Edit." Click the "Create Mask" and replace the number under "Expression." The default is 45. 
-b.	To make this layer look “normal,” go to Symbology under Layer Properties and change Contrast Enhancement to “No Enhancement.”
-c.	De-select your input image to get rid of the background to view only the plants. 
-d.	PlantsOnly_MaskBase
-        i. Use this only for consecutive flights of the same field. 
-        ii. After georeferencing the fields so they are aligned, run this model so that we measure the same locations on both dates.
+        a.	Enter your input image and the threshold value you decided on in the previous step. This tool will remove all the pixels considered “Soil or Shadow.”
+             i. Since QGIS 3.30 the threshold value must be input manually to the model. Right-click the model and "Edit." Click the "Create Mask" and replace the number under "Expression." The default is 45. 
+        b.	To make this layer look “normal,” go to Symbology under Layer Properties and change Contrast Enhancement to “No Enhancement.”
+        c.	De-select your input image to get rid of the background to view only the plants. 
+        d.	PlantsOnly_MaskBase
+             i. Use this only for consecutive flights of the same field. 
+             ii. After georeferencing the fields so they are aligned, run this model so that we measure the same locations on both dates.
 
 ## Plot Segmentation
 
