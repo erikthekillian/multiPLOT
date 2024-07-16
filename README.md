@@ -28,13 +28,15 @@ Using this tool, we will crop out any extra imagery so only the field of interes
 
 ## Plant Isolation
 
-### 4. NExG Histogram
+### 4. EGI Histogram
 
-The output shows the greenness values of pixels across the whole image. We only want the greenest pixels part of the second group. Using the cropped image from step 3. 
+Run the EGI model on the image from step 3 to calculate the excess greenness index of each pixel. 
+The output shows the greenness values of pixels across the whole image.
+To view the histogram of greenness values, double-click on the EGI layer to open Layer Properties. Find Histogram, then click Compute Histogram.
 
 Picture of histogram
 
-Select a threshold value. Values above the threshold will be labeled plants while below will be considered shadows and soil. The strictness of this threshold will define what are plants. The default threshold is 40.
+Select a threshold value based on this histogram curve. Values above the threshold will be labeled plants while below will be considered shadows and soil. The strictness of this threshold will define what are plants. Plants are represented by the higher value distribution. The distribution around 0 represents soil and some shadow pixels. It is best to select a threshold on the left-tail of the plant distribution to remove soil and shadows while maintaining plant pixels.   
  
 1. Low threshold -> some shadows or soil will be called “plants.”
 2. High threshold -> some plants will be removed as “soil or shadow.”
