@@ -34,7 +34,7 @@ Run the EGI model on the image from step 3 to calculate the excess greenness ind
 The output shows the greenness values of pixels across the whole image.
 To view the histogram of greenness values, double-click on the EGI layer to open Layer Properties. Find Histogram, then click Compute Histogram.
 
-Picture of histogram
+![Alt text](https://github.com/erikthekillian/multiPLI/blob/main/hist.jpg)
 
 Select a threshold value based on this histogram curve. Values above the threshold will be labeled plants while below will be considered shadows and soil. The strictness of this threshold will define what are plants. Plants are represented by the higher value distribution. The distribution around 0 represents soil and some shadow pixels. It is best to select a threshold on the left-tail of the plant distribution to remove soil and shadows while maintaining plant pixels.   
  
