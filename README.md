@@ -1,4 +1,4 @@
-# Tartarus
+# MultiPLI
 
 ## Introduction
 
