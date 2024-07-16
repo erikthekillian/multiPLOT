@@ -14,7 +14,7 @@ This protocol involves three main aspects.
 
 In the Processing Toolbox tab click on the triple gear icon in the top left. Select “Add Model to Toolbox” and select model files.
 
-### 2.	Import Heading_6_23.tif into QGIS
+### 2.	Import image.tif into QGIS
 
 Drag and drop the stitched image into the center of the screen
 
@@ -44,7 +44,7 @@ a.	Enter your input image and the threshold value you decided on in the previous
 b.	To make this layer look “normal,” go to Symbology under Layer Properties and change Contrast Enhancement to “No Enhancement.”
 c.	De-select your input image to get rid of the background to view only the plants. 
 d.	PlantsOnly_MaskBase
-        i. Use this for each consecutive flight of the same field. 
+        i. Use this only for consecutive flights of the same field. 
         ii. After georeferencing the fields so they are aligned, run this model so that we measure the same locations on both dates.
 
 ## Plot Segmentation
@@ -52,11 +52,12 @@ d.	PlantsOnly_MaskBase
 ### 6. Create Grid
 
      a. Line
-     b. Create a line grid, then move the lines around to accurately cover each plot
+     b. Create a line grid, then move the lines to accurately cover each plot
+         i. To edit the line grid, select the pencil "edit" icon when the line grid is selected. Then click on the edit vertices tool to move edges and lines. 
 
 ### 7. Polygonize
-     a. Don't include field from the grid
-     b. Turns grid from lines into polygons. From here move vertices as required.
+     a. Turns grid from lines into polygons. From here move vertices as required.
+     b. Editing is done similarly to line grid. If any polygons need to be removed, select and delete these. 
 
 
 ***
@@ -74,12 +75,15 @@ d.	PlantsOnly_MaskBase
 ## Index Application and Data Export
 
 ### 8. Raster Calculator
+***This is an optional step. Alternatively index calculations can be done after exporting raw data to an excel spreadsheet.***
      a. Input index.
           i. Excess Greenness Index = (2 * Green) – (Red + Blue)
           ii. Normalized Excess Greenness Index (NExG) = ((2 * Green) – (Red + Blue)) / (Red + Green + Blue)
           iii. Others
-     b. Perform this on the PlantsOnly file. Otherwise this will include the background environment as well.  
+     b. Perform this on the PlantsOnly file. Otherwise this will include the background environment as well. 
+     
 
 ### 9. Zonal Statistics
      a. The zonal statistics tools will individually measure each polygon in the grid, sampling every pixel in each polygon.
      b. If you created in-set polygons in the previous optional step, use these polygons as your reference layer. 
+     c. Zonal statistics can be run as a batch process to extract each band seperately. This data can then be combined in excel to create index calculations. 
