@@ -3,7 +3,7 @@
 ## Introduction
 
 This protocol involves three main aspects.
-1. Plant Isolation
+[link text]1. Plant Isolation
 2. Plot Segmentation
 3. Index Application & Data Extraction
 
