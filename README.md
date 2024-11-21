@@ -34,11 +34,10 @@ Images can be georeferenced in QGIS using the **Georeferencer** tool. This is re
 
 ## 1. Plant Isolation
 
-### I. EGI Histogram
+### I. Excess Greenness Index Histogram
 
-Run the EGI model on the image from step 3 to calculate the excess greenness index of each pixel. 
-The output shows the greenness values of pixels across the whole image.
-To view the histogram of greenness values, double-click on the EGI layer to open Layer Properties. Find Histogram, then click Compute Histogram.
+Run the EGI model to calculate the excess greenness index of each pixel. The output image shows the EGI values of pixels across the whole image.
+To view the histogram of greenness values, double-click on the EGI image layer to open Layer Properties. Find Histogram, then click Compute Histogram.
 
 ![Alt text](https://github.com/erikthekillian/multiPLI/blob/main/hist.jpg)
 
@@ -51,12 +50,14 @@ Select a threshold value based on this histogram curve. Values above the thresho
         a.	Enter your input image and the threshold value you decided on in the previous step. This tool will remove all the pixels considered “Soil or Shadow.”
              i. Since QGIS 3.30 the threshold value must be input manually to the model. Right-click the model and "Edit." Click the "Create Mask" and replace the number under "Expression." The default is 45. 
         b.	To make this layer look “normal,” go to Symbology under Layer Properties and change Contrast Enhancement to “No Enhancement.”
-        c.	De-select your input image to get rid of the background to view only the plants. 
+        c.	The PlantsOnly file will load on top of the original file, overlapping perfectly. De-select your input image in Layers Panel to hide the background image. 
         d.	PlantsOnly_MaskBase
              i. Use this only for consecutive flights of the same field. 
              ii. After georeferencing the fields so they are aligned, run this model so that we measure the same locations on both dates.
 
 ## 2. Plot Segmentation
+The goal of plot segmentation is to accurately delineate the bounds of each plot in the image. 
+
 
 ### I. Create Grid
 
@@ -65,8 +66,9 @@ Select a threshold value based on this histogram curve. Values above the thresho
          i. To edit the line grid, select the pencil "edit" icon when the line grid is selected. Then click on the edit vertices tool to move edges and lines. 
 
 ### II. Polygonize
-     a. Turns grid from lines into polygons. From here move vertices as required.
-     b. Editing is done similarly to line grid. If any polygons need to be removed, select and delete these. 
+
+     a. Turns grid from lines into polygons. Lines and vertices can now be edited on a plot-specific level. 
+     b. Editing is done similarly to line grid. Entire polygons can be moved or removed as well by selecting the center of the polygon.  
 
 
 ***
@@ -77,22 +79,27 @@ Select a threshold value based on this histogram curve. Values above the thresho
         Using the polygon grid as a reference layer, we create centroid points in each polygon. These will be used as reference points to create in-set polygons. 
 
 #### _b. Rectangles, Ovals, Diamonds Tool_
-        Using the centroids as a reference layer, we create a polygon around each point. The size and shape can be defined using the dialog options. 
+        Using the centroids as a reference layer, we create a polygon around each point. The size and shape can be defined using the dialog options. These are the subset plot polygons we will use to extract pixel data.  
 
 ***
 
-## 3. Index Application and Data Export
+## 3. Data Export
+To extract pixel values, we require a PlantsOnly file and an accurate plot grid. Data extraction will summarize the pixel values in each plot and export to an excel file type. This is why it is important to have both an accurately classified image that only includes plants as well as an accurate plot grid that will measure only plants in the correct plot.  
+
+### I. Zonal Statistics
+     a. The Zonal Statistics tools will individually measure each polygon in the grid, sampling every pixel in each polygon.
+     b. If you created in-set polygons in the previous optional step, use these polygons as your reference layer. 
+     c. Zonal statistics can be run as a batch process to extract each band seperately. This data can then be combined in excel to create index calculations. 
+
+
+## 4. Alternative Aproach
+If you want to view or extract specific index values we can run the raster calculator to calculate a spectral index per-pixel. This will create a new raster layer which can then be viewed and extracted per-plot using the same method as above.
 
 ### I. Raster Calculator
-***This is an optional step. Alternatively index calculations can be done after exporting raw data to an excel spreadsheet.***
+***This is an optional step.***
      a. Input index.
           i. Excess Greenness Index = (2 * Green) – (Red + Blue)
           ii. Normalized Excess Greenness Index (NExG) = ((2 * Green) – (Red + Blue)) / (Red + Green + Blue)
           iii. Others
      b. Perform this on the PlantsOnly file. Otherwise this will include the background environment as well. 
      
-
-### 9. Zonal Statistics
-     a. The zonal statistics tools will individually measure each polygon in the grid, sampling every pixel in each polygon.
-     b. If you created in-set polygons in the previous optional step, use these polygons as your reference layer. 
-     c. Zonal statistics can be run as a batch process to extract each band seperately. This data can then be combined in excel to create index calculations. 
