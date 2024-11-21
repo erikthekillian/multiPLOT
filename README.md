@@ -7,11 +7,6 @@ There are two goals in this workflow: isolating plant pixels and delineating plo
 
 ![flowchart](https://github.com/user-attachments/assets/c397dbea-6655-4b18-96c0-578228d73759)
 
-[1: Plant Isolation](#p1) 
-[2. Plot Segmentation](#p2)
-[3. Index Application & Data Extraction](#p3)
- 
-
 ## Setup
 
 ### I. Import Models
