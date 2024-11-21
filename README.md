@@ -1,11 +1,12 @@
 # MultiPLOT
 
 ## Introduction
+This workflow relies soley on QGIS tools. We created "Models" within the QGIS toolbox to automate some processing steps, but these can also be run manually the default toolbox. 
+
+There are two goals in this workflow: isolating plant pixels and delineating plots in the image. Excess Greenness Index threshold is used to classify pixels as plant or background. To create an accurate plot map we overlay a grid on our image. This can be either the original RAW image or the plant-classified image as the grid is independent of the underlying image file. The grid is created automatically based on plot sizes and extent but can then be edited on a field and plot-specific level. Finally we can extract the plant pixel band information using the Zonal Statistics Tool. This will use the plant-classified image and the plot grid to export the average or any other statistic summary of each spectral band per plot.
 
 ![flowchart](https://github.com/user-attachments/assets/c397dbea-6655-4b18-96c0-578228d73759)
 
-This protocol involves three main aspects.
-[Setup](#p0)
 [1: Plant Isolation](#p1) 
 [2. Plot Segmentation](#p2)
 [3. Index Application & Data Extraction](#p3)
@@ -15,19 +16,21 @@ This protocol involves three main aspects.
 
 ### I. Import Models
 
-In the Processing Toolbox tab click on the triple gear icon in the top left. Select “Add Model to Toolbox” and select model files.
+In the Processing Toolbox tab click on the triple gear icon in the top left. Select “Add Model to Toolbox” and select model files. These models are packages of tools run in a batch process to streamline certain steps. They are run from the Toolbox just like any other QGIS tool. Because they are made up of default tools, they are easily edited or reproduced manually through the toolbox if desired.   
 
 ### II.	Import image.tif into QGIS
 
 Drag and drop the stitched image into the center of the screen
 
-
 ### III. Clip Raster by Extent
 
-Using this tool, we will crop out any extra imagery so only the field of interest is included. Below is an example of the dialog options. 
+Using the **Clip Raster by Extent** tool, we will crop out any extra imagery so only the field of interest is included. Below is an example of the dialog options. 
 
 ![image](https://user-images.githubusercontent.com/13274399/205352656-54bc59a0-cf61-4ceb-b096-5e779d8bbc0b.png)
 
+### IV. Georeference
+
+Images can be georeferenced in QGIS using the **Georeferencer** tool. This is recommended if the dataset includes multiple flights of the same area. With georeferenced images the plot grid we make later can be applied across all images. 
 
 ## 1. Plant Isolation
 
