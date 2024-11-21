@@ -2,33 +2,36 @@
 
 ## Introduction
 
-This protocol involves three main aspects.
-[#1: Plant Isolation](#p1) 
-2. Plot Segmentation
-3. Index Application & Data Extraction
+![flowchart](https://github.com/user-attachments/assets/c397dbea-6655-4b18-96c0-578228d73759)
 
+This protocol involves three main aspects.
+[Setup](#p0)
+[1: Plant Isolation](#p1) 
+[2. Plot Segmentation](#p2)
+[3. Index Application & Data Extraction](#p3)
+ 
 
 ## Setup
 
-### 1. Import Models
+### I. Import Models
 
 In the Processing Toolbox tab click on the triple gear icon in the top left. Select “Add Model to Toolbox” and select model files.
 
-### 2.	Import image.tif into QGIS
+### II.	Import image.tif into QGIS
 
 Drag and drop the stitched image into the center of the screen
 
 
-### 3. Clip Raster by Extent
+### III. Clip Raster by Extent
 
 Using this tool, we will crop out any extra imagery so only the field of interest is included. Below is an example of the dialog options. 
 
 ![image](https://user-images.githubusercontent.com/13274399/205352656-54bc59a0-cf61-4ceb-b096-5e779d8bbc0b.png)
 
 
-## Plant Isolation
+## 1. Plant Isolation
 
-### 4. EGI Histogram
+### I. EGI Histogram
 
 Run the EGI model on the image from step 3 to calculate the excess greenness index of each pixel. 
 The output shows the greenness values of pixels across the whole image.
@@ -41,7 +44,7 @@ Select a threshold value based on this histogram curve. Values above the thresho
 1. Low threshold -> some shadows or soil will be called “plants.”
 2. High threshold -> some plants will be removed as “soil or shadow.”
 
-### 5. PLantsOnly_variable
+### II. PLantsOnly_variable
         a.	Enter your input image and the threshold value you decided on in the previous step. This tool will remove all the pixels considered “Soil or Shadow.”
              i. Since QGIS 3.30 the threshold value must be input manually to the model. Right-click the model and "Edit." Click the "Create Mask" and replace the number under "Expression." The default is 45. 
         b.	To make this layer look “normal,” go to Symbology under Layer Properties and change Contrast Enhancement to “No Enhancement.”
@@ -50,15 +53,15 @@ Select a threshold value based on this histogram curve. Values above the thresho
              i. Use this only for consecutive flights of the same field. 
              ii. After georeferencing the fields so they are aligned, run this model so that we measure the same locations on both dates.
 
-## Plot Segmentation
+## 2. Plot Segmentation
 
-### 6. Create Grid
+### I. Create Grid
 
      a. Line
      b. Create a line grid, then move the lines to accurately cover each plot
          i. To edit the line grid, select the pencil "edit" icon when the line grid is selected. Then click on the edit vertices tool to move edges and lines. 
 
-### 7. Polygonize
+### II. Polygonize
      a. Turns grid from lines into polygons. From here move vertices as required.
      b. Editing is done similarly to line grid. If any polygons need to be removed, select and delete these. 
 
@@ -75,9 +78,9 @@ Select a threshold value based on this histogram curve. Values above the thresho
 
 ***
 
-## Index Application and Data Export
+## 3. Index Application and Data Export
 
-### 8. Raster Calculator
+### I. Raster Calculator
 ***This is an optional step. Alternatively index calculations can be done after exporting raw data to an excel spreadsheet.***
      a. Input index.
           i. Excess Greenness Index = (2 * Green) – (Red + Blue)
